@@ -49,6 +49,9 @@ services:
     volumes:
       - mongo-data:/data/db
       - notebook-data4:/write
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME='root'
+      - MONGO_INITDB_ROOT_PASSWORD='example'
 
   mongo-express:
     image: 'mongo-express'
