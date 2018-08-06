@@ -19,7 +19,7 @@ services:
       - ln_username
 
   manager:
-    image: 'jeremydouglass/we1s-manager'
+    image: 'jeremydouglass/we1s-manager:dockerhub'
     links:
       - 'mongo'
     ports:
