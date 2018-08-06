@@ -11,6 +11,7 @@ services:
     image: 'jeremydouglass/we1s-collector:latest'
     volumes:
       - collector-data4:/data
+      - notebook-data4:/write
       - viewer-data:/view:z
     secrets:
       - ln_environment
