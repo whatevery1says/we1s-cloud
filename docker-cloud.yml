@@ -66,6 +66,7 @@ services:
 
   workspace2:
     image: 'jeremydouglass/we1snotebooks'
+    user: '1000:100'
     ports:
       - '10000:8888'
     volumes:
