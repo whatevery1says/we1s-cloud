@@ -36,7 +36,7 @@ services:
       - mongo-data:/data/db
 
   mongo-express:
-    image: mongo-express
+    image: 'mongo-express'
     links:
       - 'mongo'
     ports:
