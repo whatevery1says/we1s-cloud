@@ -9,6 +9,8 @@ volumes:
 services:
   collector:
     image: 'jeremydouglass/we1s-collector:latest'
+    links:
+      - 'mongo'
     volumes:
       - collector-data4:/data
       - notebook-data4:/write
