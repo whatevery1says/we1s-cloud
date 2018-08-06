@@ -24,8 +24,6 @@ services:
       - '5000:5000'
     links:
       - 'mongo'
-    depends_on:
-      - 'mongo'
     volumes:
       - notebook-data4:/instance/workspace/
       - collector-data4:/instance/tasks
@@ -42,8 +40,6 @@ services:
     image: mongo-express
     restart: always
     links:
-      - 'mongo'
-    depends_on:
       - 'mongo'
     ports:
       - 8081:8081
