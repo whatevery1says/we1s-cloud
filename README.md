@@ -1,12 +1,9 @@
 # we1s-cloud
 
-`we1s-cloud` is a collection of services for supporting the WhatEvery1Says project.
+`we1s-cloud` is a collection of services for supporting the WhatEvery1Says project. It uses [Docker](https://www.docker.com/) containers via compose/swarm, managed via the [Portainer](https://portainer.io/) web UI.
 
 Services include:
 
--  [we1s-cloud](https://github.com/whatevery1says/we1s-cloud)  
-   A collection of services for supporting the WhatEvery1Says project.  Uses [Docker](https://www.docker.com/) containers via compose/swarm, managed via the [Portainer](https://portainer.io/) web UI.
-   
 -  [we1s-collector](https://github.com/whatevery1says/we1s-collector)  
    An agent for assembling collections of documents, with task queue and api interfaces.  Uses [lexis-nexis-wsk] and [PySiQ](https://github.com/fikipollo/PySiQ).
    -  [we1s-collector-ui](https://github.com/whatevery1says/we1s-collector-ui)  
