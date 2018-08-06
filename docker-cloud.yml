@@ -32,13 +32,11 @@ services:
     image: 'mongo'
     ports:
       - '27017:27017'
-    restart: always
     volumes:
       - mongo-data:/data/db
 
   mongo-express:
     image: mongo-express
-    restart: always
     links:
       - 'mongo'
     ports:
