@@ -31,6 +31,17 @@ services:
       - notebook-data4:/instance/workspace/
       - collector-data4:/instance/tasks
 
+  manager-proxy:
+    image: 'beevelop/nginx-basic-auth'
+    links:
+      - 'manager'
+    ports:
+      - '5000:80'
+    environment:
+      - PORT=80
+      - FORWARD_HOST=manager
+      - FORWARD_PORT=5000
+
   mongo:
     image: 'mongo'
     volumes:
