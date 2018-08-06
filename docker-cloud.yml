@@ -2,7 +2,7 @@ version: '3.1'
 
 volumes:
   collector-data4:
-  manager-db-data:
+  mongo-data:
   notebook-data4:
   viewer-data:
 
@@ -23,28 +23,28 @@ services:
     ports:
       - '5000:5000'
     links:
-      - 'mongodb'
+      - 'mongo'
     depends_on:
-      - 'mongodb'
+      - 'mongo'
     volumes:
       - notebook-data4:/instance/workspace/
       - collector-data4:/instance/tasks
 
-  mongodb:
-    image: 'bitnami/mongodb:latest'
+  mongo:
+    image: 'mongo'
     ports:
       - '27017:27017'
     restart: always
     volumes:
-      - manager-db-data:/data/mongodb
+      - mongo-data:/data/db
 
   mongo-express:
     image: mongo-express
     restart: always
     links:
-      - 'mongodb'
+      - 'mongo'
     depends_on:
-      - 'mongodb'
+      - 'mongo'
     ports:
       - 8081:8081
 
