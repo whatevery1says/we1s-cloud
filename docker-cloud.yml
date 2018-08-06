@@ -26,7 +26,7 @@ services:
       - manager-db-data:/data/mongodb
 
   manager:
-    image: 'jeremydouglass/wms3'
+    image: 'jeremydouglass/we1s-manager'
     ports:
       - '5000:5000'
     links:
