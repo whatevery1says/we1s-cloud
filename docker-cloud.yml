@@ -1,0 +1,89 @@
+version: '3.1'
+
+volumes:
+  collector-data4:
+  manager-db-data:
+  notebook-data4:
+  viewer-data:
+
+services:
+  collector:
+    image: 'jeremydouglass/we1s-collector:latest'
+    volumes:
+      - collector-data4:/data
+    secrets:
+      - ln_environment
+      - ln_password
+      - ln_project_id
+      - ln_username
+
+  manager-db:
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - "27017:27017"
+    volumes:
+      - manager-db-data:/data/mongodb
+
+  manager:
+    image: 'jeremydouglass/wms3'
+    ports:
+      - '5000:5000'
+    links:
+      - "manager-db"
+    depends_on:
+      - "manager-db"
+    volumes:
+      - notebook-data4:/instance/workspace/
+      - collector-data4:/instance/tasks
+
+  viewer:
+    image: nginx
+    ports:
+      - '10001:80'
+    volumes:
+      - notebook-data4:/usr/share/nginx/html:ro
+
+  viewer2:
+    image: jeremydouglass/we1s-notebook-viewer:latest
+    ports:
+      - '10002:80'
+    volumes:
+      - viewer-data:/usr/share/nginx/html:ro
+
+  workspace:
+    image: 'jeremydouglass/we1s:dfrb'
+    ports:
+      - '9999:8888'
+    volumes:
+      - notebook-data4:/home/jovyan/work/write
+      - collector-data4:/home/jovyan/work/data
+      - viewer-data:/home/jovyan/work/view
+    environment:
+      - GRANT_SUDO=${JUPYTER_GRANT_SUDO}
+      - JUPYTER_TOKEN=${JUPYTER_TOKEN}
+      - PASSWORD=${JUPYTER_PASSWORD}
+
+  workspace2:
+    image: 'jeremydouglass/we1snotebooks'
+    ports:
+      - '10000:8888'
+    volumes:
+      - notebook-data4:/home/jovyan/write
+      - collector-data4:/home/jovyan/data
+      - viewer-data:/home/jovyan/view
+      # note that in the newer labs notebook
+      # these are parallel to ~/work, not under it
+    environment:
+      - GRANT_SUDO=${JUPYTER_GRANT_SUDO}
+      - JUPYTER_TOKEN=${JUPYTER_TOKEN}
+      - PASSWORD=${JUPYTER_PASSWORD}
+
+secrets:
+  ln_environment:
+    external: true
+  ln_password:
+    external: true
+  ln_project_id:
+    external: true
+  ln_username:
+    external: true
