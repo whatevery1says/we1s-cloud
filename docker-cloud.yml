@@ -46,6 +46,7 @@ services:
     image: 'mongo'
     volumes:
       - mongo-data:/data/db
+      - notebook-data4:/write
 
   mongo-express:
     image: 'mongo-express'
