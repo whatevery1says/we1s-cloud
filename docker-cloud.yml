@@ -18,24 +18,25 @@ services:
       - ln_project_id
       - ln_username
 
-  manager-db:
-    image: 'bitnami/mongodb:latest'
-    ports:
-      - "27017:27017"
-    volumes:
-      - manager-db-data:/data/mongodb
-
   manager:
     image: 'jeremydouglass/we1s-manager'
     ports:
       - '5000:5000'
     links:
-      - "manager-db"
+      - 'mongodb'
     depends_on:
-      - "manager-db"
+      - 'mongodb'
     volumes:
       - notebook-data4:/instance/workspace/
       - collector-data4:/instance/tasks
+
+  mongodb:
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - '27017:27017'
+    restart: always
+    volumes:
+      - manager-db-data:/data/mongodb
 
   viewer:
     image: nginx
