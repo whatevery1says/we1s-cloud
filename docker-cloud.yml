@@ -42,7 +42,7 @@ services:
       - FORWARD_HOST=manager
       - FORWARD_PORT=5000
       # generate with htpasswd. change $ -> $$, escape for Docker YML expansion
-      - HTPASSWD=${MANAGER_PROXY_HTPASSWD:-foo:$$apr1$$odHl5EJN$$KbxMfo86Qdve2FH4owePn.}
+      - HTPASSWD=${MANAGER_PROXY_HTPASSWD}
 
   mongo:
     image: 'mongo'
