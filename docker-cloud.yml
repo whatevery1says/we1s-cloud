@@ -57,7 +57,7 @@ services:
     volumes:
       - notebook-data4:/home/jovyan/work/write
       - collector-data4:/home/jovyan/work/data
-      - viewer-data:/home/jovyan/work/view
+      - viewer-data:/home/jovyan/work/view:z
     environment:
       - GRANT_SUDO=${JUPYTER_GRANT_SUDO}
       - JUPYTER_TOKEN=${JUPYTER_TOKEN}
@@ -70,7 +70,7 @@ services:
     volumes:
       - notebook-data4:/home/jovyan/write
       - collector-data4:/home/jovyan/data
-      - viewer-data:/home/jovyan/view
+      - viewer-data:/home/jovyan/view:z
       # note that in the newer labs notebook
       # these are parallel to ~/work, not under it
     environment:
