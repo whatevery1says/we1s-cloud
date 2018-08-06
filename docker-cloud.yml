@@ -50,8 +50,8 @@ services:
       - mongo-data:/data/db
       - notebook-data4:/write
     environment:
-      - MONGO_INITDB_ROOT_USERNAME='root'
-      - MONGO_INITDB_ROOT_PASSWORD='example'
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_ADMINUSERNAME:-root}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_ADMINPASSWORD:-example}
 
   mongo-express:
     image: 'mongo-express'
