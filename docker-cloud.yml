@@ -57,7 +57,7 @@ services:
       - viewer-data:/usr/share/nginx/html:ro
 
   workspace:
-    image: 'jeremydouglass/we1s:dfrb'
+    image: 'we1sdfrb20180730'
     ports:
       - '9999:8888'
     volumes:
