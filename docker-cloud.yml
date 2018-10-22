@@ -6,6 +6,7 @@ volumes:
   mongo-data:
   notebook-data:
   notebook-data4:
+  ssh-keys:
   viewer-data:
 
 services:
@@ -49,6 +50,22 @@ services:
     environment:
     - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
     - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
+
+ sshd:
+   image: 'panubo/sshd'
+   ports:
+     - '10101:22'
+   volumes:
+     - collector-data4:/data
+     - notebook-data4:/write
+     - viewer-data:/view:z
+     - mongo-data:/mongo/data
+     - ssh-keys:/etc/ssh/keys
+   environment:
+     - SSH_USERS=${SSHD_SSH_USERS}  # list of user accounts and uids/gids to create. eg SSH_USERS=www:48:48,admin:1000:1000
+     # - MOTD=${SSHD_MOTD}  # change the login message
+     - SFTP_MODE=${SSHD_SFTP_MODE}  # if "true" sshd will only accept sftp connections
+     - SFTP_CHROOT=${SSHD_SFTP_CHROOT}  # if in sftp only mode sftp will be chrooted to this directory. Default "/data"
 
   viewer:
     image: nginx
