@@ -78,8 +78,8 @@ services:
       - PASSWORD=${JUPYTER_PASSWORD}
 
   workspace2:
-    image: 'jeremydouglass/we1snotebooks'
-    user: '1000:100'
+    image: 'jeremydouglass/we1snotebooks:180808C'
+    user: 'root'
     ports:
       - '10000:8888'
     volumes:
