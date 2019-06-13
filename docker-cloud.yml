@@ -6,6 +6,8 @@ volumes:
   mongo-data:
   notebook-data:
   notebook-data4:
+  ssh-keys:
+  ssh-rsync-keys:
   viewer-data:
 
 services:
@@ -49,6 +51,23 @@ services:
     environment:
     - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
     - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
+
+  rsync-server:
+    image: 'axiom/rsync-server'
+    ports:
+      - '8001:873' # rsyncd port
+      - '9001:22'  # sshd port
+    environment:
+      - USERNAME='jovyan'
+      - PASSWORD=${JUPYTER_PASSWORD}
+      - VOLUME='/data' # path for rsync. default: /data
+      - ALLOW=${RSYNC_ALLOW_IP} # space separated list of allowed sources. default: 192.168.0.0/16 172.16.0.0/12
+    volumes:
+      - collector-data4:/data
+      - notebook-data4:/write
+      - mongo-data:/mongo/data
+      - viewer-data:/view:z
+      - ssh-rsync-keys:/root/.ssh
 
   viewer:
     image: nginx
