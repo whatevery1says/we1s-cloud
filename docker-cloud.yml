@@ -124,6 +124,23 @@ services:
       - JUPYTER_TOKEN=${JUPYTER_TOKEN}
       - PASSWORD=${JUPYTER_PASSWORD}
 
+  workspacedev:
+    image: 'jeremydouglass/preprocessing:clean'
+    user: 'root'
+    # user: '1000:100'
+    ports:
+      - '11111:8888'
+    volumes:
+      - notebook-data4:/home/jovyan/write
+      - collector-data4:/home/jovyan/data
+      - viewer-data:/home/jovyan/view:z
+      # note that in the newer labs notebook
+      # these are parallel to ~/work, not under it
+    environment:
+      - GRANT_SUDO=${JUPYTER_GRANT_SUDO}
+      - JUPYTER_TOKEN=${JUPYTER_TOKEN}
+      - PASSWORD=${JUPYTER_PASSWORD}
+
 secrets:
   ln_environment:
     external: true
