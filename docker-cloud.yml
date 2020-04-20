@@ -3,6 +3,7 @@ version: '3.1'
 volumes:
   collector-data:
   collector-data4:
+  mongo-configdb:
   mongo-data:
   notebook-data:
   notebook-data4:
@@ -39,6 +40,7 @@ services:
   mongo:
     image: 'mongo'
     volumes:
+      - mongo-configdb:/data/configdb
       - mongo-data:/data/db
       - collector-data4:/data
       - notebook-data4:/write
