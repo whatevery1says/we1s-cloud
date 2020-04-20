@@ -6,6 +6,7 @@ volumes:
   mongo-data:
   notebook-data:
   notebook-data4:
+  notebook-tmp:
   ssh-keys:
   ssh-rsync-keys:
   viewer-data:
@@ -134,6 +135,7 @@ services:
       - notebook-data4:/home/jovyan/write
       - collector-data4:/home/jovyan/data
       - viewer-data:/home/jovyan/view:z
+      - notebook-tmp:/tmp
       # note that in the newer labs notebook
       # these are parallel to ~/work, not under it
     environment:
