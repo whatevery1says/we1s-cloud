@@ -96,18 +96,6 @@ services:
     volumes:
       - viewer-data:/usr/share/nginx/html:ro
 
-  workspace:
-    image: 'we1sdfrb20180730'
-    ports:
-      - '9999:8888'
-    volumes:
-      - notebook-data4:/home/jovyan/work/write
-      - collector-data4:/home/jovyan/work/data
-      - viewer-data:/home/jovyan/work/view:z
-    environment:
-      - GRANT_SUDO=${JUPYTER_GRANT_SUDO}
-      - JUPYTER_TOKEN=${JUPYTER_TOKEN}
-      - PASSWORD=${JUPYTER_PASSWORD}
 
   workspace2:
     image: 'jeremydouglass/we1snotebooks:180808C'
