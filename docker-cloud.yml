@@ -117,6 +117,8 @@ services:
 
   workspacedev:
     image: 'jeremydouglass/preprocessing:clean'
+    links:
+      - 'mongo'
     user: 'root'
     # user: '1000:100'
     ports:
