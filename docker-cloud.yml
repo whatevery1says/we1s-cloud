@@ -13,19 +13,6 @@ volumes:
   viewer-data:
 
 services:
-  collector:
-    image: 'jeremydouglass/we1s-collector:latest'
-    links:
-      - 'mongo'
-    volumes:
-      - collector-data4:/data
-      - notebook-data4:/write
-      - viewer-data:/view:z
-    secrets:
-      - ln_environment
-      - ln_password
-      - ln_project_id
-      - ln_username
 
   manager:
     image: 'jeremydouglass/we1s-manager:dockerhub'
