@@ -14,19 +14,19 @@ volumes:
 
 services:
 
-  manager:
-    image: 'jeremydouglass/we1s-manager:dockerhub'
-    entrypoint: tail -f /dev/null
-    # entrypoint: >
-    #   sh -c "python /we1s-wms/run.py &&
-    #          tail -f /dev/null
-    links:
-      - 'mongo'
-    ports:
-      - '5000:5000'
-    volumes:
-      - notebook-data4:/instance/workspace/
-      - collector-data4:/instance/tasks
+#   manager:
+#     image: 'jeremydouglass/we1s-manager:dockerhub'
+#     entrypoint: tail -f /dev/null
+#     # entrypoint: >
+#     #   sh -c "python /we1s-wms/run.py &&
+#     #          tail -f /dev/null
+#     links:
+#       - 'mongo'
+#     ports:
+#       - '5000:5000'
+#     volumes:
+#       - notebook-data4:/instance/workspace/
+#       - collector-data4:/instance/tasks
 
   mongo:
     image: 'mongo'
@@ -46,22 +46,22 @@ services:
     - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
     - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
 
-  rsync-server:
-    image: 'axiom/rsync-server'
-    ports:
-      - '8001:873' # rsyncd port
-      - '9001:22'  # sshd port
-    environment:
-      - USERNAME='jovyan'
-      - PASSWORD=${JUPYTER_PASSWORD}
-      - VOLUME='/data' # path for rsync. default: /data
-      - ALLOW=${RSYNC_ALLOW_IP} # space separated list of allowed sources. default: 192.168.0.0/16 172.16.0.0/12
-    volumes:
-      - collector-data4:/data
-      - notebook-data4:/write
-      - mongo-data:/mongo/data
-      - viewer-data:/view:z
-      - ssh-rsync-keys:/root/.ssh
+#   rsync-server:
+#     image: 'axiom/rsync-server'
+#     ports:
+#       - '8001:873' # rsyncd port
+#       - '9001:22'  # sshd port
+#     environment:
+#       - USERNAME='jovyan'
+#       - PASSWORD=${JUPYTER_PASSWORD}
+#       - VOLUME='/data' # path for rsync. default: /data
+#       - ALLOW=${RSYNC_ALLOW_IP} # space separated list of allowed sources. default: 192.168.0.0/16 172.16.0.0/12
+#     volumes:
+#       - collector-data4:/data
+#       - notebook-data4:/write
+#       - mongo-data:/mongo/data
+#       - viewer-data:/view:z
+#       - ssh-rsync-keys:/root/.ssh
 
   viewer:
     image: nginx
@@ -99,7 +99,7 @@ services:
       - '11111:8888'
     volumes:
       - notebook-data4:/home/jovyan/write
-      - collector-data4:/home/jovyan/data
+#       - collector-data4:/home/jovyan/data
       - viewer-data:/home/jovyan/view:z
       - notebook-tmp:/tmp
       # note that in the newer labs notebook
@@ -109,12 +109,12 @@ services:
       - JUPYTER_TOKEN=${JUPYTER_TOKEN}
       - PASSWORD=${JUPYTER_PASSWORD}
 
-secrets:
-  ln_environment:
-    external: true
-  ln_password:
-    external: true
-  ln_project_id:
-    external: true
-  ln_username:
-    external: true
+# secrets:
+#   ln_environment:
+#     external: true
+#   ln_password:
+#     external: true
+#   ln_project_id:
+#     external: true
+#   ln_username:
+#     external: true
